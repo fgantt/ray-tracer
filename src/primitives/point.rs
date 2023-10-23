@@ -67,8 +67,20 @@ impl std::ops::Add<Point> for Vector {
     }
 }
 
+impl std::ops::Add for Point {
+    type Output = Point;
+
+    fn add(self, rhs: Point) -> Self::Output {
+        Point {
+            x: self.x() + rhs.x,
+            y: self.y() + rhs.y,
+            z: self.z() + rhs.z
+        }
+    }
+}
+
 // ------------------------------------------------------
-impl std::ops::Sub<Point> for Point {
+impl std::ops::Sub for Point {
     type Output = Vector;
 
     fn sub(self, rhs: Point) -> Self::Output {

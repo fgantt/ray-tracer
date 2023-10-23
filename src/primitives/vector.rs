@@ -47,6 +47,19 @@ impl Tuple for Vector {
 }
 
 // ------------------------------------------------------
+impl std::ops::Add for Vector {
+    type Output = Vector;
+
+    fn add(self, rhs: Vector) -> Self::Output {
+        Vector {
+            x: self.x() + rhs.x,
+            y: self.y() + rhs.y,
+            z: self.z() + rhs.z
+        }
+    }
+}
+
+// ------------------------------------------------------
 impl PartialEq for Vector {
     fn eq(&self, other: &Vector) -> bool {
         abs_diff_eq!(self.x, other.x, epsilon = f64::EPSILON) &&
@@ -56,7 +69,7 @@ impl PartialEq for Vector {
 }
 
 // ------------------------------------------------------
-impl std::ops::Sub<Vector> for Vector {
+impl std::ops::Sub for Vector {
     type Output = Vector;
 
     fn sub(self, rhs: Vector) -> Self::Output {

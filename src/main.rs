@@ -1,3 +1,5 @@
+mod projectile_game;
+
 fn main() {
-    println!("Hello World!");
+    projectile_game::run();
 }
