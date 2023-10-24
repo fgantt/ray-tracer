@@ -47,6 +47,15 @@ impl Tuple for Vector {
 }
 
 // ------------------------------------------------------
+impl PartialEq for Vector {
+    fn eq(&self, other: &Vector) -> bool {
+        abs_diff_eq!(self.x, other.x, epsilon = f64::EPSILON) &&
+        abs_diff_eq!(self.y, other.y, epsilon = f64::EPSILON) &&
+        abs_diff_eq!(self.z, other.z, epsilon = f64::EPSILON)
+    }
+}
+
+// ------------------------------------------------------
 impl std::ops::Add for Vector {
     type Output = Vector;
 
@@ -56,15 +65,6 @@ impl std::ops::Add for Vector {
             y: self.y() + rhs.y,
             z: self.z() + rhs.z
         }
-    }
-}
-
-// ------------------------------------------------------
-impl PartialEq for Vector {
-    fn eq(&self, other: &Vector) -> bool {
-        abs_diff_eq!(self.x, other.x, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.y, other.y, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.z, other.z, epsilon = f64::EPSILON)
     }
 }
 
@@ -195,7 +195,7 @@ mod tests {
     }
 
     #[test]
-    fn div_vector_by_scalae() {
+    fn div_vector_by_scalar() {
         let v = Vector::new(1.0, -2.0, 3.0);
         let res = v / 2.0;
         let expected = Vector::new(0.5, -1.0, 1.5);

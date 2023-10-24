@@ -220,7 +220,7 @@ mod tests {
     }
 
     #[test]
-    fn div_point_by_scalae() {
+    fn div_point_by_scalar() {
         let p = Point::new(1.0, -2.0, 3.0);
         let res = p / 2.0;
         let expected = Point::new(0.5, -1.0, 1.5);
