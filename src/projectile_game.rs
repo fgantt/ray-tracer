@@ -1,4 +1,4 @@
-use ray_tracer::primitives::{Point, Vector, Tuple};
+use ray_tracer::primitives::{Point, Vector, Tuple, Canvas, Color};
 
 pub fn run() {
 
@@ -12,12 +12,22 @@ pub fn run() {
         wind: Vector::new(-0.01, 0.0, 0.0) 
     };
     
-    println!("{:?}", p);
+    // println!("{:?}", p);
+
+    let mut c = Canvas::new(900, 550);
 
     while p.position.y() > 0.0 {
         p.tick(&e);
-        println!("{:?}", p);
+        // println!("{:?}", p);
+
+        let cy = c.height() - 1 - (p.position.y().round() as usize);
+        let cx = p.position.x().round() as usize;
+
+        c[cx][cy] = Color::red();
     }
+
+    let ppm = c.to_ppm();
+    print!("{}", ppm);
 }
 
 #[derive(Debug)]
