@@ -1,9 +1,11 @@
+use std::{fs::File, io::Write};
+
 use ray_tracer::primitives::{Point, Vector, Tuple, Canvas, Color};
 
 pub fn run() {
 
     let mut p = Projectile { 
-        position: Point::new(0.0, 1.0, 0.0), 
+        position: Point::new(0.0, 1.0, 0.0),
         velocity: Vector::new(1.0, 1.8, 0.0).normalize() * 11.25 
     };
 
@@ -27,7 +29,16 @@ pub fn run() {
     }
 
     let ppm = c.to_ppm();
-    print!("{}", ppm);
+
+    // Create a new file for writing
+    // Create a file
+    let mut data_file = File::create("images/projectile.ppm").expect("creation failed");
+
+    // Write contents to the file
+    data_file.write(ppm.as_bytes()).expect("write failed");
+
+    println!("Write Operation Successful");
+    // print!("{}", ppm);
 }
 
 #[derive(Debug)]
