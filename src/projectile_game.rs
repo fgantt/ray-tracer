@@ -1,19 +1,18 @@
 use std::{fs::File, io::Write};
 
-use ray_tracer::primitives::{Point, Vector, Tuple, Canvas, Color};
+use ray_tracer::primitives::{Canvas, Color, Point, Tuple, Vector};
 
 pub fn run() {
-
-    let mut p = Projectile { 
+    let mut p = Projectile {
         position: Point::new(0.0, 1.0, 0.0),
-        velocity: Vector::new(1.0, 1.8, 0.0).normalize() * 11.25 
+        velocity: Vector::new(1.0, 1.8, 0.0).normalize() * 11.25,
     };
 
-    let e = Environment { 
-        gravity: Vector::new(0.0, -0.1, 0.0), 
-        wind: Vector::new(-0.01, 0.0, 0.0) 
+    let e = Environment {
+        gravity: Vector::new(0.0, -0.1, 0.0),
+        wind: Vector::new(-0.01, 0.0, 0.0),
     };
-    
+
     // println!("{:?}", p);
 
     let mut c = Canvas::new(900, 550);
@@ -44,13 +43,13 @@ pub fn run() {
 #[derive(Debug)]
 struct Projectile {
     position: Point,
-    velocity: Vector
+    velocity: Vector,
 }
 
 #[derive(Debug)]
 struct Environment {
     gravity: Vector,
-    wind: Vector
+    wind: Vector,
 }
 
 impl Projectile {

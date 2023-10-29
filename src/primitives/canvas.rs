@@ -1,6 +1,4 @@
-
 use crate::primitives::color::Color;
-
 
 #[derive(Debug)]
 pub struct Canvas {
@@ -14,7 +12,7 @@ impl Canvas {
     pub fn new(width: usize, height: usize) -> Self {
         Canvas::new_with_bgcolor(width, height, Color::black())
     }
-    
+
     pub fn new_with_bgcolor(width: usize, height: usize, color: Color) -> Self {
         if width == 0 || height == 0 {
             panic!("Invalid canvas dimensions.");
@@ -42,14 +40,14 @@ impl Canvas {
     pub fn pixel_at(&self, x: usize, y: usize) -> Color {
         self[x][y]
     }
-    
+
     pub fn to_ppm(self) -> String {
         let mut ppm = format!("P3\n{} {}\n255\n", self.width, self.height);
 
         for y in 0..self.height {
             let mut line = String::new();
             for x in 0..self.width {
-                let (r, g, b)  = scale_color_components(self[x][y]);
+                let (r, g, b) = scale_color_components(self[x][y]);
 
                 for comp in [r, g, b] {
                     let comp_str = format!("{} ", comp);
@@ -73,14 +71,12 @@ impl Canvas {
     }
 }
 
-
 fn scale_color_components(color: Color) -> (u8, u8, u8) {
     let r = (color.r().clamp(0.0, 1.0) * 255.0).round() as u8;
     let g = (color.g().clamp(0.0, 1.0) * 255.0).round() as u8;
     let b = (color.b().clamp(0.0, 1.0) * 255.0).round() as u8;
     (r, g, b)
 }
-
 
 // ------------------------------------------------------
 impl std::ops::Index<usize> for Canvas {

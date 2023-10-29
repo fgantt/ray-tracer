@@ -1,11 +1,11 @@
-use approx::abs_diff_eq;
 use crate::primitives::tuple::Tuple;
+use approx::abs_diff_eq;
 
 #[derive(Clone, Copy, Debug)]
 pub struct Vector {
     x: f64,
     y: f64,
-    z: f64
+    z: f64,
 }
 
 // ------------------------------------------------------
@@ -49,9 +49,9 @@ impl Tuple for Vector {
 // ------------------------------------------------------
 impl PartialEq for Vector {
     fn eq(&self, other: &Vector) -> bool {
-        abs_diff_eq!(self.x, other.x, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.y, other.y, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.z, other.z, epsilon = f64::EPSILON)
+        abs_diff_eq!(self.x, other.x, epsilon = f64::EPSILON)
+            && abs_diff_eq!(self.y, other.y, epsilon = f64::EPSILON)
+            && abs_diff_eq!(self.z, other.z, epsilon = f64::EPSILON)
     }
 }
 
@@ -63,7 +63,7 @@ impl std::ops::Add for Vector {
         Vector {
             x: self.x() + rhs.x,
             y: self.y() + rhs.y,
-            z: self.z() + rhs.z
+            z: self.z() + rhs.z,
         }
     }
 }
@@ -73,11 +73,7 @@ impl std::ops::Sub for Vector {
     type Output = Vector;
 
     fn sub(self, rhs: Vector) -> Self::Output {
-        Vector::new(
-            self.x - rhs.x(),
-            self.y - rhs.y(),
-            self.z - rhs.z()
-        )
+        Vector::new(self.x - rhs.x(), self.y - rhs.y(), self.z - rhs.z())
     }
 }
 
@@ -86,11 +82,7 @@ impl std::ops::Mul<f64> for Vector {
     type Output = Vector;
 
     fn mul(self, rhs: f64) -> Self::Output {
-        Vector::new(
-            self.x * rhs,
-            self.y * rhs,
-            self.z * rhs
-        )
+        Vector::new(self.x * rhs, self.y * rhs, self.z * rhs)
     }
 }
 
@@ -98,11 +90,7 @@ impl std::ops::Mul<Vector> for f64 {
     type Output = Vector;
 
     fn mul(self, rhs: Vector) -> Self::Output {
-        Vector::new(
-            rhs.x * self,
-            rhs.y * self,
-            rhs.z * self
-        )
+        Vector::new(rhs.x * self, rhs.y * self, rhs.z * self)
     }
 }
 
@@ -113,7 +101,8 @@ impl std::ops::Mul for Vector {
         Vector::new(
             self.y * rhs.z() - self.z * rhs.y(),
             self.z * rhs.x() - self.x * rhs.z(),
-            self.x * rhs.y() - self.y * rhs.x) 
+            self.x * rhs.y() - self.y * rhs.x,
+        )
     }
 }
 
@@ -122,11 +111,7 @@ impl std::ops::Div<f64> for Vector {
     type Output = Vector;
 
     fn div(self, rhs: f64) -> Self::Output {
-        Vector::new(
-            self.x / rhs,
-            self.y / rhs,
-            self.z / rhs
-        )
+        Vector::new(self.x / rhs, self.y / rhs, self.z / rhs)
     }
 }
 
@@ -223,7 +208,6 @@ mod tests {
         let v = Vector::new(-1.0, -2.0, -3.0);
         let res = v.magnitude();
         assert_eq!(res, f64::sqrt(14.0));
-
     }
 
     #[test]

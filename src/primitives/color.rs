@@ -46,45 +46,28 @@ impl Color {
     }
 
     pub fn add(lhs: Color, rhs: Color) -> Color {
-        Color::new(
-            lhs.r() + rhs.r(),
-            lhs.g() + rhs.g(),
-            lhs.b() + rhs.b()
-        )
+        Color::new(lhs.r() + rhs.r(), lhs.g() + rhs.g(), lhs.b() + rhs.b())
     }
 
     pub fn sub(lhs: Color, rhs: Color) -> Color {
-        Color::new(
-            lhs.r() - rhs.r(),
-            lhs.g() - rhs.g(),
-            lhs.b() - rhs.b()
-        )
+        Color::new(lhs.r() - rhs.r(), lhs.g() - rhs.g(), lhs.b() - rhs.b())
     }
 
     pub fn mul_by_scalar(color: Color, num: f64) -> Color {
-        Color::new(
-            color.r() * num,
-            color.g() * num,
-            color.b() * num
-        )
+        Color::new(color.r() * num, color.g() * num, color.b() * num)
     }
 
     pub fn mul(lhs: Color, rhs: Color) -> Color {
-        Color::new(
-            rhs.r() * lhs.r(),
-            rhs.g() * lhs.g(),
-            rhs.b() * lhs.b() 
-        )
+        Color::new(rhs.r() * lhs.r(), rhs.g() * lhs.g(), rhs.b() * lhs.b())
     }
-
 }
 
 // ------------------------------------------------------
 impl PartialEq for Color {
     fn eq(&self, other: &Color) -> bool {
-        abs_diff_eq!(self.r, other.r, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.g, other.g, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.b, other.b, epsilon = f64::EPSILON)
+        abs_diff_eq!(self.r, other.r, epsilon = f64::EPSILON)
+            && abs_diff_eq!(self.g, other.g, epsilon = f64::EPSILON)
+            && abs_diff_eq!(self.b, other.b, epsilon = f64::EPSILON)
     }
 }
 
@@ -171,7 +154,7 @@ mod tests {
         let expected = Color::new(0.9, 0.2, 0.04);
         assert_eq!(res, expected);
     }
-    
+
     #[test]
     fn mul_color_by_scalar() {
         let c1 = Color::new(0.2, 0.3, 0.4);
@@ -179,5 +162,4 @@ mod tests {
         let expected = Color::new(0.4, 0.6, 0.8);
         assert_eq!(res, expected);
     }
-    
 }

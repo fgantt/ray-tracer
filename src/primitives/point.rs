@@ -1,12 +1,12 @@
-use approx::abs_diff_eq;
 use crate::primitives::{tuple::Tuple, vector::Vector};
+use approx::abs_diff_eq;
 
 // ------------------------------------------------------
 #[derive(Clone, Copy, Debug)]
 pub struct Point {
     x: f64,
     y: f64,
-    z: f64
+    z: f64,
 }
 
 // ------------------------------------------------------
@@ -35,12 +35,11 @@ impl Tuple for Point {
 // ------------------------------------------------------
 impl PartialEq for Point {
     fn eq(&self, other: &Point) -> bool {
-        abs_diff_eq!(self.x, other.x, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.y, other.y, epsilon = f64::EPSILON) &&
-        abs_diff_eq!(self.z, other.z, epsilon = f64::EPSILON)
+        abs_diff_eq!(self.x, other.x, epsilon = f64::EPSILON)
+            && abs_diff_eq!(self.y, other.y, epsilon = f64::EPSILON)
+            && abs_diff_eq!(self.z, other.z, epsilon = f64::EPSILON)
     }
 }
-
 
 // ------------------------------------------------------
 impl std::ops::Add<Vector> for Point {
@@ -50,7 +49,7 @@ impl std::ops::Add<Vector> for Point {
         Self {
             x: self.x + rhs.x(),
             y: self.y + rhs.y(),
-            z: self.z + rhs.z()
+            z: self.z + rhs.z(),
         }
     }
 }
@@ -62,7 +61,7 @@ impl std::ops::Add<Point> for Vector {
         Point {
             x: self.x() + rhs.x,
             y: self.y() + rhs.y,
-            z: self.z() + rhs.z
+            z: self.z() + rhs.z,
         }
     }
 }
@@ -74,7 +73,7 @@ impl std::ops::Add for Point {
         Point {
             x: self.x() + rhs.x,
             y: self.y() + rhs.y,
-            z: self.z() + rhs.z
+            z: self.z() + rhs.z,
         }
     }
 }
@@ -84,23 +83,15 @@ impl std::ops::Sub for Point {
     type Output = Vector;
 
     fn sub(self, rhs: Point) -> Self::Output {
-        Vector::new(
-            self.x - rhs.x(),
-            self.y - rhs.y(),
-            self.z - rhs.z()
-        )
+        Vector::new(self.x - rhs.x(), self.y - rhs.y(), self.z - rhs.z())
     }
 }
 
 impl std::ops::Sub<Vector> for Point {
     type Output = Point;
-    
-    fn sub(self, rhs:Vector) -> Self::Output {
-        Point::new(
-            self.x - rhs.x(),
-            self.y - rhs.y(),
-            self.z - rhs.z()
-        )
+
+    fn sub(self, rhs: Vector) -> Self::Output {
+        Point::new(self.x - rhs.x(), self.y - rhs.y(), self.z - rhs.z())
     }
 }
 
@@ -109,11 +100,7 @@ impl std::ops::Mul<f64> for Point {
     type Output = Point;
 
     fn mul(self, rhs: f64) -> Self::Output {
-        Point::new(
-            self.x * rhs,
-            self.y * rhs,
-            self.z * rhs
-        )
+        Point::new(self.x * rhs, self.y * rhs, self.z * rhs)
     }
 }
 
@@ -121,11 +108,7 @@ impl std::ops::Mul<Point> for f64 {
     type Output = Point;
 
     fn mul(self, rhs: Point) -> Self::Output {
-        Point::new(
-            rhs.x * self,
-            rhs.y * self,
-            rhs.z * self
-        )
+        Point::new(rhs.x * self, rhs.y * self, rhs.z * self)
     }
 }
 
@@ -134,11 +117,7 @@ impl std::ops::Div<f64> for Point {
     type Output = Point;
 
     fn div(self, rhs: f64) -> Self::Output {
-        Point::new(
-            self.x / rhs,
-            self.y / rhs,
-            self.z / rhs
-        )
+        Point::new(self.x / rhs, self.y / rhs, self.z / rhs)
     }
 }
 
