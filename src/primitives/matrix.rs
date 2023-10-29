@@ -31,7 +31,7 @@ impl Matrix {
         Self::new(4, 4, 0.0)
     }
 
-    pub fn identity() -> Matrix{
+    pub fn identity() -> Matrix {
         let mut m = Self::new4();
         m[0][0] = 1.0;
         m[1][1] = 1.0;
@@ -66,7 +66,7 @@ impl Matrix {
         if self.width == 2 {
             return self[0][0] * self[1][1] - self[0][1] * self[1][0];
         }
-        
+
         let mut det: f64 = 0.0;
         for col in 0..self.width {
             det += self[0][col] * self.cofactor(0, col);
@@ -177,10 +177,10 @@ impl std::ops::Mul for Matrix {
 
         for row in 0..self.width {
             for col in 0..self.height {
-                result[row][col] = self[row][0] * rhs[0][col] +
-                    self[row][1] * rhs[1][col] +
-                    self[row][2] * rhs[2][col] +
-                    self[row][3] * rhs[3][col];
+                result[row][col] = self[row][0] * rhs[0][col]
+                    + self[row][1] * rhs[1][col]
+                    + self[row][2] * rhs[2][col]
+                    + self[row][3] * rhs[3][col];
             }
         }
 
@@ -221,6 +221,7 @@ mod tests {
 
     #[test]
     fn matrix_construction() {
+        #[rustfmt::skip]
         let data = [
             1.0, 2.0, 3.0, 4.0, 
             5.5, 6.5, 7.5, 8.5, 
@@ -241,6 +242,7 @@ mod tests {
 
     #[test]
     fn matrix2_construction() {
+        #[rustfmt::skip]
         let m = Matrix::new2().init([
             -3.0, 5.0,
             1.0, -2.0
@@ -254,6 +256,7 @@ mod tests {
 
     #[test]
     fn matrix3_construction() {
+        #[rustfmt::skip]
         let m = Matrix::new3().init([
             -3.0, 5.0, 0.0,
             1.0, -2.0, -7.0,
@@ -267,6 +270,7 @@ mod tests {
 
     #[test]
     fn matrix_eq() {
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             1.0, 2.0, 3.0, 4.0,
             5.0, 6.0, 7.0, 8.0,
@@ -274,6 +278,7 @@ mod tests {
             5.0, 4.0, 3.0, 2.0
         ].to_vec());
 
+        #[rustfmt::skip]
         let b = Matrix::new4().init([
             1.0, 2.0, 3.0, 4.0,
             5.0, 6.0, 7.0, 8.0,
@@ -286,6 +291,7 @@ mod tests {
 
     #[test]
     fn matrix_ne() {
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             1.0, 2.0, 3.0, 4.0,
             5.0, 6.0, 7.0, 8.0,
@@ -293,6 +299,7 @@ mod tests {
             5.0, 4.0, 3.0, 2.0
         ].to_vec());
 
+        #[rustfmt::skip]
         let b = Matrix::new4().init([
             2.0, 3.0, 4.0, 5.0,
             6.0, 7.0, 8.0, 9.0,
@@ -305,6 +312,7 @@ mod tests {
 
     #[test]
     fn matrix_mult_two_matrices() {
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             1.0, 2.0, 3.0, 4.0,
             5.0, 6.0, 7.0, 8.0,
@@ -312,6 +320,7 @@ mod tests {
             5.0, 4.0, 3.0, 2.0
         ].to_vec());
 
+        #[rustfmt::skip]
         let b = Matrix::new4().init([
             -2.0, 1.0, 2.0, 3.0,
             3.0, 2.0, 1.0, -1.0,
@@ -320,7 +329,8 @@ mod tests {
         ].to_vec());
 
         let c = a * b;
-        
+
+        #[rustfmt::skip]
         let expected = Matrix::new4().init([
             20.0, 22.0, 50.0, 48.0,
             44.0, 54.0, 114.0, 108.0,
@@ -333,6 +343,7 @@ mod tests {
 
     #[test]
     fn matrix_mult_tuple() {
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             1.0, 2.0, 3.0, 4.0,
             2.0, 4.0, 4.0, 2.0,
@@ -349,6 +360,7 @@ mod tests {
 
     #[test]
     fn matrix_mult_by_identity() {
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             0.0, 1.0, 2.0, 4.0,
             1.0, 2.0, 4.0, 8.0,
@@ -360,6 +372,7 @@ mod tests {
 
         //TODO(feg): can't compare a to result -  borrow checker...
 
+        #[rustfmt::skip]
         let expected = Matrix::new4().init([
             0.0, 1.0, 2.0, 4.0,
             1.0, 2.0, 4.0, 8.0,
@@ -380,6 +393,7 @@ mod tests {
 
     #[test]
     fn matrix_transpose() {
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             0.0, 9.0, 3.0, 0.0,
             9.0, 8.0, 0.0, 8.0,
@@ -387,8 +401,9 @@ mod tests {
             0.0, 0.0, 5.0, 8.0
         ].to_vec());
 
-        let result= a.transpose();
+        let result = a.transpose();
 
+        #[rustfmt::skip]
         let expected = Matrix::new4().init([
             0.0, 9.0, 1.0, 0.0,
             9.0, 8.0, 8.0, 0.0,
@@ -401,16 +416,18 @@ mod tests {
 
     #[test]
     fn matrix_determinant_2x2() {
+        #[rustfmt::skip]
         let a = Matrix::new2().init([
             1.0, 5.0,
             -3.0, 2.0
         ].to_vec());
-        
+
         assert_eq!(a.determinant(), 17.0);
     }
 
     #[test]
     fn matrix_submatrix() {
+        #[rustfmt::skip]
         let a = Matrix::new3().init([
             1.0, 5.0, 0.0,
             -3.0, 2.0, 7.0,
@@ -419,6 +436,7 @@ mod tests {
 
         let s = a.sub_matrix(0, 2);
 
+        #[rustfmt::skip]
         let expected = Matrix::new2().init([
             -3.0, 2.0,
             0.0, 6.0
@@ -426,6 +444,7 @@ mod tests {
 
         assert_eq!(expected, s);
 
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             -6.0, 1.0, 1.0, 6.0,
             -8.0, 5.0, 8.0, 6.0,
@@ -435,6 +454,7 @@ mod tests {
 
         let s = a.sub_matrix(2, 1);
 
+        #[rustfmt::skip]
         let expected = Matrix::new3().init([
             -6.0, 1.0, 6.0,
             -8.0, 8.0, 6.0,
@@ -446,6 +466,7 @@ mod tests {
 
     #[test]
     fn matrix_minor() {
+        #[rustfmt::skip]
         let a = Matrix::new3().init([
             3.0, 5.0, 0.0,
             2.0, -1.0, -7.0,
@@ -460,6 +481,7 @@ mod tests {
 
     #[test]
     fn matrix_cofactor() {
+        #[rustfmt::skip]
         let a = Matrix::new3().init([
             3.0, 5.0, 0.0,
             2.0, -1.0, -7.0,
@@ -474,6 +496,7 @@ mod tests {
 
     #[test]
     fn matrix_determinant() {
+        #[rustfmt::skip]
         let m3 = Matrix::new3().init([
             1.0, 2.0, 6.0,
             -5.0, 8.0, -4.0,
@@ -485,6 +508,7 @@ mod tests {
         assert_eq!(m3.cofactor(0, 2), -46.0);
         assert_eq!(m3.determinant(), -196.0);
 
+        #[rustfmt::skip]
         let m4 = Matrix::new4().init([
             -2.0, -8.0, 3.0, 5.0,
             -3.0, 1.0, 7.0, 3.0,
@@ -501,6 +525,7 @@ mod tests {
 
     #[test]
     fn matrix_is_invertible() {
+        #[rustfmt::skip]
         let m4 = Matrix::new4().init([
             6.0, 4.0, 4.0, 4.0,
             5.0, 5.0, 7.0, 6.0,
@@ -511,6 +536,7 @@ mod tests {
         assert_eq!(m4.determinant(), -2120.0);
         assert_eq!(m4.is_invertible(), true);
 
+        #[rustfmt::skip]
         let m4 = Matrix::new4().init([
             -4.0, 2.0, -2.0, -3.0,
             9.0, 6.0, 2.0, 6.0,
@@ -524,6 +550,7 @@ mod tests {
 
     #[test]
     fn matrex_inverse() {
+        #[rustfmt::skip]
         let m4 = Matrix::new4().init([
             -5.0, 2.0, 6.0, -8.0,
             1.0, -5.0, 1.0, 8.0,
@@ -539,6 +566,7 @@ mod tests {
                 assert_eq!(m4.cofactor(3, 2), 105.0);
                 assert_eq!(result[2][3], 105.0 / 532.0);
 
+                #[rustfmt::skip]
                 let expected = Matrix::new4().init([
                     0.21805, 0.45113, 0.24060, -0.04511,
                     -0.80827, -1.45677, -0.44361, 0.52068,
@@ -547,13 +575,14 @@ mod tests {
                 ].to_vec());
 
                 assert_eq!(expected, result);
-            },
-            None => assert!(false)
+            }
+            None => assert!(false),
         }
     }
 
     #[test]
     fn matrex_inverse2() {
+        #[rustfmt::skip]
         let m4 = Matrix::new4().init([
             8.0, -5.0, 9.0, 2.0,
             7.0, 5.0, 6.0, 1.0,
@@ -563,6 +592,7 @@ mod tests {
 
         match m4.inverse() {
             Some(result) => {
+                #[rustfmt::skip]
                 let expected = Matrix::new4().init([
                     -0.15385, -0.15385, -0.28205, -0.53846,
                     -0.07692, 0.12308, 0.02564, 0.03077,
@@ -571,13 +601,14 @@ mod tests {
                 ].to_vec());
 
                 assert_eq!(expected, result);
-            },
-            None => assert!(false)
+            }
+            None => assert!(false),
         }
     }
 
     #[test]
     fn matrex_inverse3() {
+        #[rustfmt::skip]
         let m4 = Matrix::new4().init([
             9.0, 3.0, 0.0, 9.0,
             -5.0, -2.0, -6.0, -3.0,
@@ -587,6 +618,7 @@ mod tests {
 
         match m4.inverse() {
             Some(result) => {
+                #[rustfmt::skip]
                 let expected = Matrix::new4().init([
                     -0.04074, -0.07778, 0.14444, -0.22222,
                     -0.07778, 0.03333, 0.36667, -0.33333,
@@ -595,13 +627,14 @@ mod tests {
                 ].to_vec());
 
                 assert_eq!(expected, result);
-            },
-            None => assert!(false)
+            }
+            None => assert!(false),
         }
     }
 
     #[test]
     fn matrix_mult_product_by_inverse() {
+        #[rustfmt::skip]
         let a = Matrix::new4().init([
             3.0, -9.0, 7.0, 3.0,
             3.0, -8.0, 2.0, -9.0,
@@ -609,6 +642,7 @@ mod tests {
             -6.0, 5.0, -1.0, 1.0
         ].to_vec());
 
+        #[rustfmt::skip]
         let b = Matrix::new4().init([
             8.0, 2.0, 2.0, 2.0,
             3.0, -1.0, 7.0, 0.0,
@@ -621,6 +655,7 @@ mod tests {
                 let c = a * b;
 
                 //TODO(feg): Unable to use a from above due to borrow check.
+                #[rustfmt::skip]
                 let a = Matrix::new4().init([
                     3.0, -9.0, 7.0, 3.0,
                     3.0, -8.0, 2.0, -9.0,
@@ -629,9 +664,8 @@ mod tests {
                 ].to_vec());
 
                 assert_eq!(c * binv, a);
-            },
-            None => assert!(false)
+            }
+            None => assert!(false),
         }
     }
-
 }
